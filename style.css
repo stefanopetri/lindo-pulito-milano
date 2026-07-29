@@ -1,0 +1,136 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:linear-gradient(180deg,#fff 0%,#fff7fb 100%);
+
+    color:#333;
+
+}
+
+.container{
+
+    width:90%;
+    max-width:900px;
+
+    margin:auto;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+}
+
+h1{
+
+    color:#e84c8b;
+
+    font-size:48px;
+
+    margin-bottom:15px;
+
+}
+
+.subtitle{
+
+    font-size:22px;
+
+    color:#666;
+
+    margin-bottom:50px;
+
+    line-height:1.6;
+
+}
+
+.buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    margin-bottom:60px;
+
+}
+
+.buttons a{
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    font-size:22px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.instagram{
+
+    background:#E1306C;
+
+}
+
+.whatsapp{
+
+    background:#25D366;
+
+}
+
+.buttons a:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+    margin-bottom:10px;
+
+    color:#e84c8b;
+
+}
+
+footer{
+
+    margin-top:70px;
+
+    color:#999;
+
+}
