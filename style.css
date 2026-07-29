@@ -1,104 +1,113 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(180deg,#fdeef5,#ffffff);
-    color:#333;
-    display:flex;
-    justify-content:center;
-    padding:30px 15px;
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top,#ffd6e7 0%,#fff5fa 35%,#ffffff 100%);
+color:#333;
+padding:22px 14px;
 }
 
 .container{
-    width:100%;
-    max-width:430px;
-    background:#fff;
-    border-radius:28px;
-    padding:35px 28px;
-    box-shadow:0 20px 45px rgba(0,0,0,.10);
-    text-align:center;
+max-width:440px;
+margin:auto;
+background:rgba(255,255,255,.92);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,210,230,.8);
+border-radius:32px;
+padding:34px 26px;
+box-shadow:
+0 25px 60px rgba(233,30,99,.10),
+0 8px 20px rgba(0,0,0,.06);
+text-align:center;
 }
 
 .logo{
-    width:170px;
-    display:block;
-    margin:0 auto 20px;
+width:210px;
+display:block;
+margin:0 auto 10px;
+filter:drop-shadow(0 10px 18px rgba(0,0,0,.15));
 }
 
 h1{
-    color:#e91e63;
-    font-size:2rem;
-    margin-bottom:10px;
+font-size:2.35rem;
+font-weight:700;
+line-height:1.05;
+color:#e6367d;
+margin:10px 0 18px;
 }
 
 .subtitle{
-    color:#666;
-    line-height:1.6;
-    margin-bottom:28px;
-    font-size:.97rem;
+font-size:1.05rem;
+line-height:1.7;
+color:#666;
+margin-bottom:30px;
 }
 
 .buttons{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    margin-bottom:30px;
+display:flex;
+flex-direction:column;
+gap:16px;
+margin-bottom:30px;
 }
 
 .buttons a{
-    text-decoration:none;
-    color:#fff;
-    padding:15px;
-    border-radius:14px;
-    font-weight:600;
-    transition:.25s;
+display:block;
+padding:18px;
+border-radius:18px;
+text-decoration:none;
+font-weight:600;
+font-size:1.08rem;
+color:white;
+transition:.25s;
+box-shadow:0 12px 25px rgba(0,0,0,.12);
 }
 
-.buttons a:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
+.buttons a:active{
+transform:scale(.98);
 }
 
 .instagram{
-    background:#E1306C;
+background:linear-gradient(135deg,#ff4f96,#d91d68);
 }
 
 .whatsapp{
-    background:#25D366;
+background:linear-gradient(135deg,#37db71,#12b44e);
 }
 
 .cards{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:14px;
-    margin-top:15px;
+display:grid;
+gap:15px;
+margin-top:10px;
 }
 
 .card{
-    background:#fff6fa;
-    border:1px solid #ffd4e3;
-    border-radius:18px;
-    padding:18px;
+background:linear-gradient(180deg,#fff9fc,#ffeaf3);
+border:none;
+border-radius:20px;
+padding:18px;
+box-shadow:0 8px 18px rgba(233,30,99,.08);
 }
 
 .card h2{
-    color:#e91e63;
-    font-size:1.6rem;
-    margin-bottom:6px;
+font-size:1.8rem;
+margin-bottom:6px;
 }
 
 .card p{
-    color:#666;
-    font-size:.95rem;
-    line-height:1.5;
+font-size:.95rem;
+line-height:1.55;
+color:#666;
 }
 
 footer{
-    margin-top:28px;
-    color:#888;
-    font-size:.82rem;
+margin-top:28px;
+padding-top:18px;
+border-top:1px solid #f2d6e3;
+font-size:.9rem;
+color:#999;
 }
