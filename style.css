@@ -111,3 +111,96 @@ border-top:1px solid #f2d6e3;
 font-size:.9rem;
 color:#999;
 }
+
+.promo-cleaning{
+  margin: 35px 0 40px;
+  background: white;
+  border-radius: 30px;
+  padding: 24px 20px 28px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-cleaning::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(255,105,180,0.06), rgba(255,255,255,0));
+  pointer-events:none;
+}
+
+.promo-image-box{
+  position: relative;
+  background: #fff;
+  border-radius: 24px;
+  padding: 18px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.promo-sofa{
+  width: 100%;
+  max-width: 360px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 18px;
+}
+
+.shine-bar{
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 35%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.65),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shineMove 3.2s infinite;
+}
+
+@keyframes shineMove{
+  0%{
+    left: -45%;
+  }
+  100%{
+    left: 120%;
+  }
+}
+
+.promo-cleaning h2{
+  font-size: 34px;
+  line-height: 1.15;
+  color: #e84c8b;
+  margin: 10px 0 12px;
+  font-weight: 700;
+}
+
+.promo-cleaning p{
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0 0 22px;
+}
+
+.promo-button{
+  display: inline-block;
+  background: linear-gradient(135deg, #ff4f9a, #e81f76);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 16px 26px;
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(232, 31, 118, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promo-button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(232, 31, 118, 0.30);
+}
