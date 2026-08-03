@@ -252,3 +252,29 @@ h1{
   animation: fadeUp .8s ease forwards;
   animation-delay:.75s;
 }
+
+.promo-image-box{
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+}
+
+.promo-sofa-clean{
+    width:100%;
+    display:block;
+    border-radius:20px;
+}
+
+#cleanCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    touch-action:none;
+    border-radius:20px;
+}
+
+.shine-bar{
+    z-index:5;
+}
