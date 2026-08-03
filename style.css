@@ -273,6 +273,8 @@ h1{
     height:100%;
     touch-action:none;
     border-radius:20px;
+    z-index:2;
+    cursor:pointer;
 }
 
 .shine-bar{
