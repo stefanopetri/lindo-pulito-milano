@@ -10,8 +10,6 @@ if (canvas) {
   const ctx = canvas.getContext("2d");
   const dirtyImage = new Image();
 
-  dirtyImage.src = "divano-sporco.PNG?v=4";
-
   let drawing = false;
   let lastPoint = null;
   let canvasWidth = 0;
@@ -44,7 +42,7 @@ if (canvas) {
       canvasHeight
     );
   };
-
+dirtyImage.src = "divano-sporco.PNG?v=7";
   function getPosition(event) {
     const rect = canvas.getBoundingClientRect();
 
