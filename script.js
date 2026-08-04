@@ -196,6 +196,22 @@ dirtyImage.src = "divano-sporco.PNG?v=7";
     if (reward) {
       reward.hidden = false;
     }
+    confetti({
+  particleCount: 140,
+  spread: 80,
+  startVelocity: 35,
+  origin: { y: 0.65 },
+  colors: ["#ff4d94", "#6fd3ff", "#ffffff"]
+});
+
+setTimeout(() => {
+  confetti({
+    particleCount: 90,
+    spread: 120,
+    origin: { y: 0.65 },
+    colors: ["#ff4d94", "#6fd3ff"]
+  });
+}, 250);
   }
 
   canvas.addEventListener("pointerdown", event => {
