@@ -196,7 +196,6 @@ dirtyImage.src = "divano-sporco.PNG?v=7";
     if (reward) {
       reward.hidden = false;
     }
-    alert(typeof confetti);
     
     confetti({
   particleCount: 140,
