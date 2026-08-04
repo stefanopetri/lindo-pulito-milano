@@ -1,89 +1,240 @@
 const canvas = document.getElementById("cleanCanvas");
+const progressBar = document.getElementById("cleanProgressBar");
+const progressText = document.getElementById("cleanProgressText");
+const reward = document.getElementById("cleanReward");
+const discountCode = document.getElementById("discountCode");
+const rewardWhatsapp = document.getElementById("rewardWhatsapp");
+const instruction = document.querySelector(".game-instruction");
 
 if (canvas) {
+  const ctx = canvas.getContext("2d");
+  const dirtyImage = new Image();
 
-    const ctx = canvas.getContext("2d");
+  dirtyImage.src = "divano-sporco.PNG?v=4";
 
-    const dirty = new Image();
-    dirty.src = "divano-sporco.PNG?v=3";
+  let drawing = false;
+  let lastPoint = null;
+  let canvasWidth = 0;
+  let canvasHeight = 0;
+  let rewardUnlocked = false;
 
-    let drawing = false;
+  const columns = 12;
+  const rows = 6;
+  const cleanedCells = new Set();
+  const rewardThreshold = 75;
 
-    dirty.onload = () => {
+  dirtyImage.onload = () => {
+    const rect = canvas.getBoundingClientRect();
+    const pixelRatio = window.devicePixelRatio || 1;
 
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+    canvasWidth = rect.width;
+    canvasHeight = rect.height;
 
-        ctx.drawImage(dirty,0,0,canvas.width,canvas.height);
+    canvas.width = Math.round(canvasWidth * pixelRatio);
+    canvas.height = Math.round(canvasHeight * pixelRatio);
 
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.globalCompositeOperation = "source-over";
+
+    ctx.drawImage(
+      dirtyImage,
+      0,
+      0,
+      canvasWidth,
+      canvasHeight
+    );
+  };
+
+  function getPosition(event) {
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
     };
+  }
 
-    function erase(x,y){
+  function erasePoint(x, y) {
+    ctx.save();
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 42, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
 
-        ctx.globalCompositeOperation="destination-out";
+    recordCleanedArea(x, y);
+  }
 
-        ctx.beginPath();
-        ctx.arc(x,y,45,0,Math.PI*2);
-        ctx.fill();
+  function eraseLine(start, end) {
+    ctx.save();
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.lineWidth = 84;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.stroke();
+    ctx.restore();
 
+    const distance = Math.hypot(
+      end.x - start.x,
+      end.y - start.y
+    );
+
+    const steps = Math.max(1, Math.ceil(distance / 18));
+
+    for (let i = 0; i <= steps; i++) {
+      const x = start.x + ((end.x - start.x) * i) / steps;
+      const y = start.y + ((end.y - start.y) * i) / steps;
+
+      recordCleanedArea(x, y);
+    }
+  }
+
+  function recordCleanedArea(x, y) {
+    if (rewardUnlocked || !canvasWidth || !canvasHeight) {
+      return;
     }
 
-    function position(e){
+    const column = Math.floor((x / canvasWidth) * columns);
+    const row = Math.floor((y / canvasHeight) * rows);
 
-        const rect=canvas.getBoundingClientRect();
-
-        if(e.touches){
-
-            return{
-                x:e.touches[0].clientX-rect.left,
-                y:e.touches[0].clientY-rect.top
-            };
-
+    for (let offsetX = -1; offsetX <= 1; offsetX++) {
+      for (let offsetY = -1; offsetY <= 1; offsetY++) {
+        if (Math.abs(offsetX) + Math.abs(offsetY) > 1) {
+          continue;
         }
 
-        return{
-            x:e.clientX-rect.left,
-            y:e.clientY-rect.top
-        };
+        const currentColumn = column + offsetX;
+        const currentRow = row + offsetY;
 
+        if (
+          currentColumn >= 0 &&
+          currentColumn < columns &&
+          currentRow >= 0 &&
+          currentRow < rows
+        ) {
+          cleanedCells.add(
+            `${currentColumn}-${currentRow}`
+          );
+        }
+      }
     }
 
-    canvas.addEventListener("mousedown",()=>drawing=true);
-    canvas.addEventListener("mouseup",()=>drawing=false);
-    canvas.addEventListener("mouseleave",()=>drawing=false);
+    updateProgress();
+  }
 
-    canvas.addEventListener("mousemove",(e)=>{
+  function updateProgress() {
+    const totalCells = columns * rows;
 
-        if(!drawing) return;
+    const percentage = Math.min(
+      100,
+      Math.round((cleanedCells.size / totalCells) * 100)
+    );
 
-        const p=position(e);
+    if (progressBar) {
+      progressBar.style.width = `${percentage}%`;
+    }
 
-        erase(p.x,p.y);
+    if (progressText) {
+      progressText.textContent = `${percentage}%`;
+    }
 
-    });
+    if (percentage >= rewardThreshold) {
+      unlockReward();
+    }
+  }
 
-    canvas.addEventListener("touchstart",(e)=>{
+  function createDiscountCode() {
+    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let randomPart = "";
 
-        drawing=true;
+    for (let i = 0; i < 4; i++) {
+      randomPart += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
 
-        const p=position(e);
+    return `LINDO-${randomPart}`;
+  }
 
-        erase(p.x,p.y);
+  function unlockReward() {
+    if (rewardUnlocked) {
+      return;
+    }
 
-    });
+    rewardUnlocked = true;
 
-    canvas.addEventListener("touchmove",(e)=>{
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-        e.preventDefault();
+    if (progressBar) {
+      progressBar.style.width = "100%";
+    }
 
-        if(!drawing) return;
+    if (progressText) {
+      progressText.textContent = "100%";
+    }
 
-        const p=position(e);
+    if (instruction) {
+      instruction.textContent = "✨ Pulizia completata!";
+    }
 
-        erase(p.x,p.y);
+    const code = createDiscountCode();
 
-    },{passive:false});
+    if (discountCode) {
+      discountCode.textContent = code;
+    }
 
-    canvas.addEventListener("touchend",()=>drawing=false);
+    if (rewardWhatsapp) {
+      const message =
+        `Ciao! Ho completato il gioco sul sito ` +
+        `e ho ottenuto il codice ${code} per 10 € di sconto.`;
 
+      rewardWhatsapp.href =
+        `https://wa.me/393514191936?text=${encodeURIComponent(message)}`;
+    }
+
+    if (reward) {
+      reward.hidden = false;
+    }
+  }
+
+  canvas.addEventListener("pointerdown", event => {
+    event.preventDefault();
+
+    drawing = true;
+    lastPoint = getPosition(event);
+
+    canvas.setPointerCapture?.(event.pointerId);
+    erasePoint(lastPoint.x, lastPoint.y);
+  });
+
+  canvas.addEventListener("pointermove", event => {
+    if (!drawing) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const currentPoint = getPosition(event);
+
+    eraseLine(lastPoint, currentPoint);
+    lastPoint = currentPoint;
+  });
+
+  function stopDrawing(event) {
+    drawing = false;
+    lastPoint = null;
+
+    if (
+      event &&
+      canvas.hasPointerCapture?.(event.pointerId)
+    ) {
+      canvas.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  canvas.addEventListener("pointerup", stopDrawing);
+  canvas.addEventListener("pointercancel", stopDrawing);
 }
