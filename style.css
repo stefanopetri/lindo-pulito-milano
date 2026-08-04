@@ -382,3 +382,54 @@ h1{
     transform:translateY(0) scale(1);
   }
 }
+.clean-reward{
+    margin-top:22px;
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    animation:rewardPop .5s ease;
+}
+
+.clean-reward[hidden]{
+    display:none;
+}
+
+.discount-code{
+    display:inline-block;
+    margin:12px 0;
+    padding:10px 18px;
+    border-radius:12px;
+    background:#ff4d94;
+    color:white;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:2px;
+}
+
+.reward-whatsapp{
+    display:inline-block;
+    margin-top:15px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:14px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.reward-whatsapp:hover{
+    transform:translateY(-2px);
+}
+
+@keyframes rewardPop{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
