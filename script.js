@@ -254,7 +254,7 @@ setTimeout(() => {
   canvas.addEventListener("pointercancel", stopDrawing);
 }
 const counters = document.querySelectorAll(".counter");
-
+alert(counters.length);
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
