@@ -253,3 +253,36 @@ setTimeout(() => {
   canvas.addEventListener("pointerup", stopDrawing);
   canvas.addEventListener("pointercancel", stopDrawing);
 }
+const counters = document.querySelectorAll(".counter");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        counters.forEach((counter, index) => {
+            setTimeout(() => {
+                const target = Number(counter.dataset.target);
+                let current = 0;
+
+                const step = Math.max(1, Math.ceil(target / 80));
+
+                const timer = setInterval(() => {
+                    current += step;
+
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+
+                    counter.textContent = current;
+                }, 20);
+
+            }, index * 180);
+        });
+
+        observer.disconnect();
+    });
+});
+
+const cards = document.querySelector(".cards");
+if (cards) observer.observe(cards);
